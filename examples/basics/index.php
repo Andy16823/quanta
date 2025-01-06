@@ -1,7 +1,7 @@
 <?php
 require 'vendor/autoload.php'; 
 use Quanta\Quanta;
-use Quanta\Component;
+use Quanta\Core\Component;
 
 // Create the quanta instance
 $quanta = new Quanta();  
