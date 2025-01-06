@@ -19,52 +19,51 @@
 
 ## Installation
 
-Clone the repository from GitHub:
+Install via Composer
+To install Quanta in your project, you can use Composer. First, make sure you have Composer installed on your system. If you don’t have Composer, you can download and install it from here.
+
+Add Quanta to your project by running the following command:
+
+```bash
+composer require andy16823/quanta
+```
+
+Manual Installation (Optional)
+Alternatively, you can clone the repository manually and include the framework in your project:
 
 ```bash
 git clone https://github.com/Andy16823/quanta.git
 ```
 
-### Directory Structure
-
-After installation, your project directory will look like this:
-
-```
-yourproject/
-├── quanta/             # Framework core
-├── index.php           # Entry point
-```
-
-### Setting Up Your First Route
+### Setting Up Your First Route and Components
 
 Add the following code to `index.php` to set up your first route:
 
 ```php
-include_once("quanta/quanta.php");
+<?php
+require 'vendor/autoload.php'; 
+use Quanta\Quanta;
+use Quanta\Component;
 
-$quanta = new Quanta();
-$quanta->databaseHandler->init("127.0.0.1", "quanta_test", "root", "");
+// Create the quanta instance
+$quanta = new Quanta();  
 
-include_once("inc/components.php");
-
-$quanta->routeHandler->initial_routing('page', 'fallbackComponent');
-$quanta->routeHandler->register_route('home', 'homeComponent');
-$quanta->routeHandler->route($quanta);
-```
-
-### Rendering Components
-
-Define components like this:
-
-```php
-class HomeComponent extends Component
-{
+// Create an simple component
+class MyComponent extends Component {
     public function render($quanta, $data) {
-        return "<h1>Welcome to Quanta!</h1>";
+        return "<h1>Hello Quanta</h1>";
     }
 }
-$quanta->componentHandler->add_component(new HomeComponent("homeComponent"));
+$quanta->componentHandler->add_component(new MyComponent("home_component"));
+
+// Register an simple route and call the url: https://yourpage.com/?page=home
+$quanta->routeHandler->initial_routing();
+$quanta->routeHandler->register_route("home", "home_component");
+
+// Process the routing
+$quanta->process_routing();
 ```
+
 You can also load a PHP template directly into your component. If your component requires 
 dynamic data, you can pass an associative array of variables to the `load_template` function. 
 These variables will be accessible within the template, making it easier 
