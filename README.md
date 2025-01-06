@@ -65,6 +65,26 @@ class HomeComponent extends Component
 }
 $quanta->componentHandler->add_component(new HomeComponent("homeComponent"));
 ```
+You can also load a PHP template directly into your component. If your component requires 
+dynamic data, you can pass an associative array of variables to the `load_template` function. 
+These variables will be accessible within the template, making it easier 
+to separate logic from presentation.
+
+```php
+class UserProfileComponent extends Component
+{
+    public function render($quanta, $data) {
+        // Add or modify variables in the $data array
+        $data["username"] = "JohnDoe"; // Default value or overwrite
+        $data["email"] = $data["email"] ?? "unknown@example.com"; // Fallback value
+        $data["role"] = $data["role"] ?? "Guest";
+
+        // Load the template with the enriched data
+        return $quanta->load_template("templates/user-profile.php", $data);
+    }
+}
+$quanta->componentHandler->add_component(new UserProfileComponent("userProfile"));
+```
 
 Visit `http://localhost/?page=home` to see your component in action.
 
