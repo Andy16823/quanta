@@ -7,8 +7,7 @@
     },
     "autoload": {
         "psr-4": {
-            "Quanta\\": "quanta/quanta.php",
-            "Quanta\\Inc\\": "quanta/inc/"
+            "Quanta\\": "quanta/"
         }
     },
     "license": "MIT",
