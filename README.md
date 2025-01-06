@@ -30,7 +30,7 @@ git clone https://github.com/Andy16823/quanta.git
 After installation, your project directory will look like this:
 
 ```
-quanta/
+yourproject/
 ├── quanta/             # Framework core
 ├── index.php           # Entry point
 ```
