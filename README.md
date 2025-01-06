@@ -19,10 +19,20 @@
 
 ## Installation
 
-Clone the repository from GitHub:
+Install via Composer
+To install Quanta in your project, you can use Composer. First, make sure you have Composer installed on your system. If you don’t have Composer, you can download and install it from here.
+
+Add Quanta to your project by running the following command:
 
 ```bash
 composer require andy16823/quanta
+```
+
+Manual Installation (Optional)
+Alternatively, you can clone the repository manually and include the framework in your project:
+
+```bash
+git clone https://github.com/Andy16823/quanta.git
 ```
 
 ### Setting Up Your First Route and Components
