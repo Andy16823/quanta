@@ -6,7 +6,7 @@ namespace Quanta\Core;
  */
 class DatabaseHandler
 {
-    private $pdo;
+    public $pdo;
 
     /**
      * Initialize the database handler
