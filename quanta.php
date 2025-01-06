@@ -1,4 +1,5 @@
 <?php
+namespace Quanta;
 session_start();
 include_once("inc/message.php");
 include_once("inc/module.php");

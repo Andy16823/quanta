@@ -1,4 +1,5 @@
 <?php
+namespace Quanta;
 
 /**
  * Handles the components

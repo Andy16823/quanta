@@ -1,4 +1,5 @@
 <?php
+namespace Quanta;
 
 /**
  * An route handler which handles the drawing from components when given url's gets called

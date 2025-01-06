@@ -1,4 +1,6 @@
 <?php
+use Quanta\Message;
+
 /**
  * An simple error message wich working with the bootstrap alert-danger class
  */

@@ -1,5 +1,5 @@
 <?php
-
+namespace Quanta;
 /**
  * The base class to create the actions for the action handler
  */
