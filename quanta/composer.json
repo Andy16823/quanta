@@ -1,0 +1,21 @@
+{
+    "name": "Quanta",
+    "description": "A lightweight and modular PHP framework for modern web applications",
+    "type": "library",
+    "require": {
+        "php": ">=7.4"
+    },
+    "autoload": {
+        "psr-4": {
+            "Quanta\\": "quanta.php",
+            "Quanta\\Inc\\": "inc/"
+        }
+    },
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Andy",
+            "email": "info@andy-designs.de"
+        }
+    ]
+}
