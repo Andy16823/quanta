@@ -1,5 +1,5 @@
 <?php
-namespace Quanta;
+namespace Quanta\Core;
 
 /**
  * An simple memory class

@@ -1,14 +1,13 @@
 <?php
-namespace Quanta;
-
+namespace Quanta\Core;
 /**
- * The base class for the components
+ * The base class to create the actions for the action handler
  */
-abstract class Component
+abstract class Action
 {
     protected $id;
 
-    abstract public function render($quanta, $data);
+    abstract public function execute($quanta) : string|bool;
 
     public function __construct($id)
     {

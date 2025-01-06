@@ -1,11 +1,13 @@
 <?php
-namespace Quanta;
-
+namespace Quanta\Core;
 /**
- * The base class for the modules
+ * The base class for the components
  */
-abstract class Module {
+abstract class Component
+{
     protected $id;
+
+    abstract public function render($quanta, $data);
 
     public function __construct($id)
     {
@@ -16,7 +18,4 @@ abstract class Module {
     {
         return $this->id;
     }
-
-    abstract public function load($quanta);
-    abstract public function dispose($quanta);
 }

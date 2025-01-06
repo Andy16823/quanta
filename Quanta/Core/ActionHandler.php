@@ -1,5 +1,8 @@
 <?php
-namespace Quanta;
+namespace Quanta\Core;
+
+use Quanta\Quanta;
+
 class ActionHandler
 {
     public $actions;

@@ -1,13 +1,11 @@
 <?php
-namespace Quanta;
-/**
- * The base class to create the actions for the action handler
- */
-abstract class Action
-{
-    protected $id;
+namespace Quanta\Core;
 
-    abstract public function execute($quanta) : string|bool;
+/**
+ * The base class for the modules
+ */
+abstract class Module {
+    protected $id;
 
     public function __construct($id)
     {
@@ -18,4 +16,7 @@ abstract class Action
     {
         return $this->id;
     }
+
+    abstract public function load($quanta);
+    abstract public function dispose($quanta);
 }

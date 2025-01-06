@@ -1,5 +1,5 @@
 <?php
-namespace Quanta;
+namespace Quanta\Core;
 
 /**
  * The base class for the messages

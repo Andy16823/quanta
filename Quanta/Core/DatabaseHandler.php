@@ -1,5 +1,5 @@
 <?php
-namespace Quanta;
+namespace Quanta\Core;
 
 /**
  * An handler for the database connection

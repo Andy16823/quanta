@@ -1,18 +1,26 @@
 <?php
 namespace Quanta;
 session_start();
-include_once("inc/message.php");
-include_once("inc/module.php");
-include_once("inc/action.php");
-include_once("inc/component.php");
-include_once("inc/component_handler.php");
-include_once("inc/action_handler.php");
-include_once("inc/memory.php");
-include_once("inc/database_handler.php");
-include_once("inc/route_handler.php");
-include_once("inc/module_handler.php");
-include_once("inc/message_handler.php");
-include_once("inc/prebuild-instances.php");
+include_once("Core/Message.php");
+include_once("Core/Module.php");
+include_once("Core/Action.php");
+include_once("Core/Component.php");
+include_once("Core/ComponentHandler.php");
+include_once("Core/ActionHandler.php");
+include_once("Core/Memory.php");
+include_once("Core/DatabaseHandler.php");
+include_once("Core/RouteHandler.php");
+include_once("Core/ModuleHandler.php");
+include_once("Core/MessageHandler.php");
+include_once("Core/PrebuildInstances.php");
+
+use Quanta\Core\Memory;
+use Quanta\Core\ActionHandler;
+use Quanta\Core\ComponentHandler;
+use Quanta\Core\DatabaseHandler;
+use Quanta\Core\RouteHandler;
+use Quanta\Core\ModuleHandler;
+use Quanta\Core\MessageHandler;
 
 class Quanta
 {

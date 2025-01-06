@@ -1,6 +1,7 @@
 <?php
-namespace Quanta;
+namespace Quanta\Core;
 
+use Quanta\Quanta;
 /**
  * Handles the components
  */
