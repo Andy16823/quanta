@@ -78,7 +78,7 @@ class SaveUserAction extends Action {
         $username = $_POST['username'];
         $email = $_POST['email'];
         $quanta->databaseHandler->query("INSERT INTO users (username, email) VALUES (?, ?)", [$username, $email]);
-        return true;
+        return false; // false because we dont want to redirect
     }
 }
 $quanta->actionHandler->add_action(new SaveUserAction("save_user"));
