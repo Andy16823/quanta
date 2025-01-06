@@ -164,5 +164,5 @@ Quanta is open-source and distributed under the MIT License. See `LICENSE` for m
 
 ## Contact
 
-For more information, visit [quanta-dev.com](https://getquanta.dev)
+For more information, visit [getquanta.com](https://getquanta.dev)
 
