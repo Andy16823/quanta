@@ -1,5 +1,5 @@
 {
-    "name": "Quanta",
+    "name": "andy16823/quanta",
     "description": "A lightweight and modular PHP framework for modern web applications",
     "type": "library",
     "require": {
