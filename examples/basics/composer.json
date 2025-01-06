@@ -1,0 +1,13 @@
+{
+    "name": "andy16823/testproject",
+    "description": "Test Project",
+    "type": "project",
+    "autoload": {
+        "psr-4": {
+            "Andy16823\\Testproject\\": ""
+        }
+    },
+    "require": {
+        "andy16823/quanta": "dev-main"
+    }
+}
