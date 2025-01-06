@@ -1,6 +1,6 @@
 # Quanta
 
-Quanta is a modern and modular PHP framework designed for developers who prioritize simplicity, flexibility, and scalability. With its component-based architecture and intuitive design, Quanta is the perfect solution for building modern web applications efficiently.
+[Quanta](https://getquanta.dev/) is a modern and modular PHP framework designed for developers who prioritize simplicity, flexibility, and scalability. With its component-based architecture and intuitive design, Quanta is the perfect solution for building modern web applications efficiently.
 
 ---
 
