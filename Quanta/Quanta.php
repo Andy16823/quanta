@@ -14,6 +14,7 @@ include_once("Core/ModuleHandler.php");
 include_once("Core/MessageHandler.php");
 include_once("Core/PrebuildInstances.php");
 
+use Quanta\Core\Module;
 use Quanta\Core\Memory;
 use Quanta\Core\ActionHandler;
 use Quanta\Core\ComponentHandler;
