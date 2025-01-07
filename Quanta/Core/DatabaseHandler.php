@@ -1,5 +1,7 @@
 <?php
 namespace Quanta\Core;
+use PDO;
+use PDOException;
 
 /**
  * An handler for the database connection
