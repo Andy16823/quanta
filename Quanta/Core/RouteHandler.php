@@ -1,6 +1,8 @@
 <?php
 namespace Quanta\Core;
 
+use Exception;
+
 /**
  * An route handler which handles the drawing from components when given url's gets called
  */
@@ -16,7 +18,8 @@ class RouteHandler
      * @throws \Exception No component exception
      * @return mixed return the fallback component
      */
-    private function get_fallback_component($quanta) {
+    private function get_fallback_component($quanta)
+    {
         if ($this->fallbackComponent)
         {
             if ($quanta->componentHandler->exist_component($this->fallbackComponent))
@@ -78,7 +81,7 @@ class RouteHandler
      * @param mixed $quanta the Quanta instance
      * @return void
      */
-    public function route($quanta)
+    public function route($quanta, $defaultComponent = "")
     {
         if (isset($_GET[$this->routeParam]))
         {
@@ -91,6 +94,10 @@ class RouteHandler
             {
                 echo $this->get_fallback_component($quanta);
             }
+        }
+        elseif ($defaultComponent)
+        {
+            echo $quanta->render_component($defaultComponent);
         }
     }
 }

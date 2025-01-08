@@ -89,9 +89,9 @@ class Quanta
      * Process the routing
      * @return void
      */
-    public function process_routing()
+    public function process_routing($defaultComponent = "")
     {
-        $this->routeHandler->route($this);
+        $this->routeHandler->route($this, $defaultComponent);
     }
 
     /**
