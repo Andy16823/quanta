@@ -81,5 +81,21 @@ class CleanRoute extends Route
             $quanta->renderComponent($this->componentId);
         }
     }
+}
 
+class PatternRoute extends Route {
+    protected string $pattern;
+    protected mixed $callback;
+
+    public function __construct(string $routeId, string $pattern, callable $callback) {
+        parent::__construct($routeId);
+        $this->pattern = $pattern;
+        $this->callback = $callback;
+    }
+
+    public function process(Quanta $quanta, string $url) {
+        if(preg_match_all($this->pattern, $url, $matches)) {
+            call_user_func($this->callback, $quanta, $url, $matches);
+        }
+    }
 }
