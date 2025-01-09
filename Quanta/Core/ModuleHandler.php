@@ -1,6 +1,8 @@
 <?php
 namespace Quanta\Core;
 
+use Quanta\Quanta;
+
 /**
  * Handles the external modules
  */
@@ -57,7 +59,7 @@ class ModuleHandler
      * @param mixed $quanta the Quanta instance
      * @return void
      */
-    public function loadModules($quanta)
+    public function loadModules(Quanta $quanta)
     {
         foreach ($this->modules as $module)
         {
@@ -69,11 +71,11 @@ class ModuleHandler
      * Dispose the modules
      * @return void
      */
-    public function disposeModules()
+    public function disposeModules(Quanta $quanta)
     {
         foreach ($this->modules as $module)
         {
-            $module->dispose(null);
+            $module->dispose($quanta);
         }
     }
 }

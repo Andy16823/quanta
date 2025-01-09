@@ -48,7 +48,7 @@ class Quanta
 
     public function __destruct()
     {
-        $this->moduleHandler->disposeModules();
+        $this->moduleHandler->disposeModules($this);
         $this->vars = array();
         $this->actionHandler = null;
         $this->memory = null;
