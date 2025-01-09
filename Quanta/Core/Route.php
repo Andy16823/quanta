@@ -77,24 +77,56 @@ class CleanRoute extends Route
 
     public function process(Quanta $quanta, string $url)
     {
-        if(in_array($url, $this->params)) {
+        if (in_array($url, $this->params))
+        {
             $quanta->renderComponent($this->componentId);
         }
     }
 }
 
-class PatternRoute extends Route {
+class PatternRoute extends Route
+{
     protected string $pattern;
     protected mixed $callback;
 
-    public function __construct(string $routeId, string $pattern, callable $callback) {
+    public function __construct(string $routeId, string $pattern, callable $callback)
+    {
         parent::__construct($routeId);
         $this->pattern = $pattern;
         $this->callback = $callback;
     }
 
-    public function process(Quanta $quanta, string $url) {
-        if(preg_match_all($this->pattern, $url, $matches)) {
+    public function process(Quanta $quanta, string $url)
+    {
+        if (preg_match_all($this->pattern, $url, $matches))
+        {
+            call_user_func($this->callback, $quanta, $url, $matches);
+        }
+    }
+}
+
+class SimplePatternRoute extends Route
+{
+
+    protected string $pattern;
+    protected mixed $callback;
+
+    public function __construct(string $routeId, string $pattern, callable $callback)
+    {
+        parent::__construct($routeId);
+        $this->pattern = $this->parsePattern($pattern);
+        echo $this->pattern;
+        $this->callback = $callback;
+    }
+
+    private function parsePattern(string $pattern): array|string|null {
+        return preg_replace("/\{([a-zA-Z0-9_]+)\}/", "(?P<$1>[^/]+)", $pattern);
+    }
+
+    public function process(Quanta $quanta, string $url)
+    {
+        if (preg_match_all($this->pattern, $url, $matches))
+        {
             call_user_func($this->callback, $quanta, $url, $matches);
         }
     }
