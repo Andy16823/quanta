@@ -65,20 +65,19 @@ class QueryParameterRoute extends Route
 
 class CleanRoute extends Route
 {
-    protected string $pattern;
     protected string $componentId;
+    protected array $params;
 
-    public function __construct(string $routeId, string $pattern, string $componentId)
+    public function __construct(string $routeId, array $params, string $componentId)
     {
         parent::__construct($routeId);
-        $this->pattern = $pattern;
+        $this->params = $params;
         $this->componentId = $componentId;
     }
 
     public function process(Quanta $quanta, string $url)
     {
-        // $requestPath = parse_url($url, PHP_URL_PATH);
-        if ($url === $this->pattern) {
+        if(in_array($url, $this->params)) {
             $quanta->renderComponent($this->componentId);
         }
     }
