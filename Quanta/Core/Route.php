@@ -107,7 +107,6 @@ class PatternRoute extends Route
 
 class SimplePatternRoute extends Route
 {
-
     protected string $pattern;
     protected mixed $callback;
 
@@ -115,12 +114,11 @@ class SimplePatternRoute extends Route
     {
         parent::__construct($routeId);
         $this->pattern = $this->parsePattern($pattern);
-        echo $this->pattern;
         $this->callback = $callback;
     }
 
     private function parsePattern(string $pattern): array|string|null {
-        return preg_replace("/\{([a-zA-Z0-9_]+)\}/", "(?P<$1>[^/]+)", $pattern);
+        return '#^' . preg_replace("/\{([a-zA-Z0-9_]+)\}/", "(?P<$1>[^/]+)", $pattern) . '$#';
     }
 
     public function process(Quanta $quanta, string $url)
