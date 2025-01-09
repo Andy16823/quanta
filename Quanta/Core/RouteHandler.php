@@ -2,40 +2,14 @@
 namespace Quanta\Core;
 
 use Exception;
+use Quanta\Core\Route;
 
 /**
  * An route handler which handles the drawing from components when given url's gets called
  */
 class RouteHandler
 {
-    protected $routes;
-    protected $routeParam;
-    protected $fallbackComponent;
-
-    /**
-     * Returns an fallback component
-     * @param mixed $quanta the Quanta instance
-     * @throws \Exception No component exception
-     * @return mixed return the fallback component
-     */
-    private function get_fallback_component($quanta)
-    {
-        if ($this->fallbackComponent)
-        {
-            if ($quanta->componentHandler->exist_component($this->fallbackComponent))
-            {
-                return $quanta->render_component($this->fallbackComponent);
-            }
-            else
-            {
-                throw new Exception("fallbackComponent dont exist.");
-            }
-        }
-        else
-        {
-            return "404 - Component not found";
-        }
-    }
+    protected array $routes;
 
     /**
      * Creates an new instance from the route handler
@@ -53,27 +27,9 @@ class RouteHandler
         $this->routes = array();
     }
 
-    /**
-     * Initialize the routing
-     * @param mixed $routeParam the get parameter where the handler is watching for
-     * @param mixed $fallbackComponent the fallback component id
-     * @return void
-     */
-    public function initial_routing($routeParam = "page", $fallbackComponent = null)
+    public function addRoute(Route $route)
     {
-        $this->routeParam = $routeParam;
-        $this->fallbackComponent = $fallbackComponent;
-    }
-
-    /**
-     * Register an new route
-     * @param string $name the keyword where the handler is watching for
-     * @param string $component_id the component id which gets rendered when the routeParam and the name match
-     * @return void
-     */
-    public function register_route(string $name, string $component_id)
-    {
-        $this->routes[$name] = $component_id;
+        $this->routes[$route->routeId] = $route;
     }
 
     /**
@@ -81,23 +37,11 @@ class RouteHandler
      * @param mixed $quanta the Quanta instance
      * @return void
      */
-    public function route($quanta, $defaultComponent = "")
+    public function process($quanta)
     {
-        if (isset($_GET[$this->routeParam]))
-        {
-            $route = $_GET[$this->routeParam];
-            if (array_key_exists($route, $this->routes))
-            {
-                echo $quanta->render_component($this->routes[$route]);
-            }
-            else
-            {
-                echo $this->get_fallback_component($quanta);
-            }
-        }
-        elseif ($defaultComponent)
-        {
-            echo $quanta->render_component($defaultComponent);
+        $requestUri = $_SERVER['REQUEST_URI'];
+        foreach($this->routes as $route) {
+            $route->process($quanta, $requestUri);
         }
     }
 }

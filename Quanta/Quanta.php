@@ -1,18 +1,20 @@
 <?php
 namespace Quanta;
 session_start();
-include_once("Core/Message.php");
-include_once("Core/Module.php");
-include_once("Core/Action.php");
-include_once("Core/Component.php");
-include_once("Core/ComponentHandler.php");
-include_once("Core/ActionHandler.php");
-include_once("Core/Memory.php");
-include_once("Core/DatabaseHandler.php");
-include_once("Core/RouteHandler.php");
-include_once("Core/ModuleHandler.php");
-include_once("Core/MessageHandler.php");
-include_once("Core/PrebuildInstances.php");
+
+require_once("Core/Message.php");
+require_once("Core/Module.php");
+require_once("Core/Action.php");
+require_once("Core/Component.php");
+require_once("Core/ComponentHandler.php");
+require_once("Core/ActionHandler.php");
+require_once("Core/Memory.php");
+require_once("Core/DatabaseHandler.php");
+require_once("Core/RouteHandler.php");
+require_once("Core/ModuleHandler.php");
+require_once("Core/MessageHandler.php");
+require_once("Core/PrebuildInstances.php");
+require_once("Core/Route.php");
 
 use Quanta\Core\Module;
 use Quanta\Core\Memory;
@@ -89,9 +91,9 @@ class Quanta
      * Process the routing
      * @return void
      */
-    public function process_routing($defaultComponent = "")
+    public function processRouting($defaultComponent = "")
     {
-        $this->routeHandler->route($this, $defaultComponent);
+        $this->routeHandler->process($this);
     }
 
     /**
