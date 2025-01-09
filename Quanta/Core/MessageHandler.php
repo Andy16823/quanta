@@ -1,6 +1,9 @@
 <?php 
 namespace Quanta\Core;
 
+use Quanta\Quanta;
+use Quanta\Core\Message;
+
 /**
  * Handles the messages
  */
@@ -32,9 +35,9 @@ class MessageHandler {
      * @param mixed $quanta the quanta instance
      * @return void
      */
-    public function fetchMessages($quanta) {
+    public function fetchMessages(Quanta $quanta) {
         foreach ($_SESSION["flash_messages"] as $message) {
-            echo $message->render_message($quanta);
+            echo $message->renderMessage($quanta);
         }
         $_SESSION["flash_messages"] = array();
     }
