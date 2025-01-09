@@ -2,19 +2,19 @@
 namespace Quanta;
 session_start();
 
-require_once("Core/Message.php");
-require_once("Core/Module.php");
-require_once("Core/Action.php");
-require_once("Core/Component.php");
-require_once("Core/ComponentHandler.php");
-require_once("Core/ActionHandler.php");
-require_once("Core/Memory.php");
-require_once("Core/DatabaseHandler.php");
-require_once("Core/RouteHandler.php");
-require_once("Core/ModuleHandler.php");
-require_once("Core/MessageHandler.php");
-require_once("Core/PrebuildInstances.php");
-require_once("Core/Route.php");
+require_once(__DIR__ . "/Core/Message.php");
+require_once(__DIR__ . "/Core/Module.php");
+require_once(__DIR__ . "/Core/Action.php");
+require_once(__DIR__ . "/Core/Component.php");
+require_once(__DIR__ . "/Core/ComponentHandler.php");
+require_once(__DIR__ . "/Core/ActionHandler.php");
+require_once(__DIR__ . "/Core/Memory.php");
+require_once(__DIR__ . "/Core/DatabaseHandler.php");
+require_once(__DIR__ . "/Core/RouteHandler.php");
+require_once(__DIR__ . "/Core/ModuleHandler.php");
+require_once(__DIR__ . "/Core/MessageHandler.php");
+require_once(__DIR__ . "/Core/PrebuildInstances.php");
+require_once(__DIR__ . "/Core/Route.php");
 
 use Quanta\Core\Module;
 use Quanta\Core\Memory;
