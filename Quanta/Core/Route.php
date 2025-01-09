@@ -129,6 +129,7 @@ class SimplePatternRoute extends Route
 
     public function process(Quanta $quanta, string $url)
     {
+        $url = strtok($url,'?');
         if (preg_match_all($this->pattern, $url, $matches))
         {
             call_user_func($this->callback, $quanta, $url, $matches);
