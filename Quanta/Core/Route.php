@@ -31,7 +31,7 @@ class DefaultRoute extends Route
     {
         if (!isset($_GET[$this->queryParameterName]))
         {
-            $quanta->render_component($this->componentId);
+            $quanta->renderComponent($this->componentId);
         }
     }
 }
@@ -57,8 +57,30 @@ class QueryParameterRoute extends Route
         {
             if ($_GET[$this->queryParameterName] == $this->expectedParameterValue)
             {
-                $quanta->render_component($this->componentId);
+                $quanta->renderComponent($this->componentId);
             }
         }
     }
+}
+
+class CleanRoute extends Route
+{
+    protected string $pattern;
+    protected string $componentId;
+
+    public function __construct(string $routeId, string $pattern, string $componentId)
+    {
+        parent::__construct($routeId);
+        $this->pattern = $pattern;
+        $this->componentId = $componentId;
+    }
+
+    public function process(Quanta $quanta, string $url)
+    {
+        $requestPath = parse_url($url, PHP_URL_PATH);
+        if ($requestPath === $this->pattern) {
+            $quanta->renderComponent($this->componentId);
+        }
+    }
+
 }

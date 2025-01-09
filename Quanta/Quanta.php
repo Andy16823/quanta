@@ -102,7 +102,7 @@ class Quanta
      * @param mixed $data an array with data wich passed to the component render function
      * @return void
      */
-    public function render_component($id, $data = [])
+    public function renderComponent($id, $data = [])
     {
         $this->componentHandler->render($this, $id, $data);
     }
