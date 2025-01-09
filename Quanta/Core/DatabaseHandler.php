@@ -8,7 +8,7 @@ use PDOException;
  */
 class DatabaseHandler
 {
-    public $pdo;
+    protected $pdo;
 
     /**
      * Initialize the database handler
@@ -51,6 +51,10 @@ class DatabaseHandler
     public function lastInsertId()
     {
         return $this->pdo->lastInsertId();
+    }
+
+    public function getPDO(): PDO {
+        return $this->pdo;
     }
 
 }

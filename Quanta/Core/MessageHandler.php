@@ -22,9 +22,9 @@ class MessageHandler {
      * @param Message $message the message to add
      * @return void
      */
-    public function add_message(Message $message) { 
-        $message->set_message_id(uniqid());
-        $_SESSION["flash_messages"][$message->get_message_id()] = $message;
+    public function addMessage(Message $message) { 
+        $message->setMessageID(uniqid());
+        $_SESSION["flash_messages"][$message->getMessageID()] = $message;
     }
 
     /**
@@ -32,7 +32,7 @@ class MessageHandler {
      * @param mixed $quanta the quanta instance
      * @return void
      */
-    public function fetch_messages($quanta) {
+    public function fetchMessages($quanta) {
         foreach ($_SESSION["flash_messages"] as $message) {
             echo $message->render_message($quanta);
         }

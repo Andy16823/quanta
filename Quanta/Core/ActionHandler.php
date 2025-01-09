@@ -6,7 +6,7 @@ use Quanta\Quanta;
 class ActionHandler
 {
     public $actions;
-    public $action_param;
+    public $actionParam;
 
     /**
      * Creates an new instance from the action handler
@@ -29,9 +29,9 @@ class ActionHandler
      * @param mixed $action_param the action url parameter
      * @return void
      */
-    public function init($action_param = 'action')
+    public function init($actionParam = 'action')
     {
-        $this->action_param = $action_param;
+        $this->actionParam = $actionParam;
     }
 
     /**
@@ -39,7 +39,7 @@ class ActionHandler
      * @param Action $action the action to add
      * @return void
      */
-    public function add_action(Action $action)
+    public function addAction(Action $action)
     {
         $this->actions[$action->getId()] = $action;
     }
@@ -50,12 +50,12 @@ class ActionHandler
      * @param string $baseurl the base url to attach the action
      * @return string the url with the action parameter
      */
-    public function build_action_url(string $action, string $baseurl = null): string
+    public function buildActionURL(string $action, string $baseurl = null): string
     {
         if ($baseurl === null) { 
-            $baseurl = Quanta::get_current_url();
+            $baseurl = Quanta::getCurrentURL();
         }
-        return $baseurl . '?' . $this->action_param . '=' . $action;
+        return $baseurl . '?' . $this->actionParam . '=' . $action;
     }
 
     /**
@@ -66,9 +66,9 @@ class ActionHandler
      */
     public function process($quanta, $redirect = true)
     {
-        if (isset($_GET[$this->action_param]))
+        if (isset($_GET[$this->actionParam]))
         {
-            $action = $_GET[$this->action_param];
+            $action = $_GET[$this->actionParam];
             if (array_key_exists($action, $this->actions))
             {
                 $result = $this->actions[$action]->execute($quanta);

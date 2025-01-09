@@ -48,7 +48,7 @@ class Quanta
 
     public function __destruct()
     {
-        $this->moduleHandler->dispose_modules();
+        $this->moduleHandler->disposeModules();
         $this->vars = array();
         $this->actionHandler = null;
         $this->memory = null;
@@ -63,16 +63,16 @@ class Quanta
      * Fetch the messages from the message que
      * @return void
      */
-    public function fetch_messages()
+    public function fetchMessages()
     {
-        $this->messageHandler->fetch_messages($this);
+        $this->messageHandler->fetchMessages($this);
     }
 
     /**
      * Returns the current url without any parameters
      * @return array|bool|int|string|null
      */
-    public static function get_current_url()
+    public static function getCurrentURL()
     {
         return parse_url($_SERVER["REQUEST_URI"], PHP_URL_PATH);
     }
@@ -82,7 +82,7 @@ class Quanta
      * @param mixed $redirect if true you can redirect to the given url from the action return.
      * @return void
      */
-    public function process_action($redirect = true)
+    public function processAction($redirect = true)
     {
         $this->actionHandler->process($this, $redirect);
     }
@@ -111,9 +111,9 @@ class Quanta
      * Loads the modules
      * @return void
      */
-    public function load_modules()
+    public function loadModules()
     {
-        $this->moduleHandler->load_modules($this);
+        $this->moduleHandler->loadModules($this);
     }
 
     /**
@@ -121,9 +121,9 @@ class Quanta
      * @param Module $module the module to add
      * @return Module the added module
      */
-    public function add_module(Module $module): Module
+    public function addModule(Module $module): Module
     {
-        $this->moduleHandler->add_module($module);
+        $this->moduleHandler->addModule($module);
         return $module;
     }
 
@@ -133,7 +133,7 @@ class Quanta
      * @param mixed $params the parameters wich passed to the template wich gets loaded
      * @return bool|string returns the loaded template as string or false if the file dont exist
      */
-    public function load_template($filename, $params = [])
+    public function loadTemplate($filename, $params = [])
     {
         $params['quanta'] = $this;
         if (file_exists($filename))

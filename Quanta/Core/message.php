@@ -7,13 +7,13 @@ namespace Quanta\Core;
 abstract class Message {
     public string $messageId;
 
-    public function set_message_id(string $messageId): void {
+    public function setMessageID(string $messageId): void {
         $this->messageId = $messageId;
     }
 
-    public function get_message_id(): string { 
+    public function getMessageID(): string { 
         return $this->messageId;
     }
 
-    public abstract function render_message($quanta);
+    public abstract function renderMessage($quanta);
 }

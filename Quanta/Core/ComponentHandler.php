@@ -20,7 +20,7 @@ Class ComponentHandler {
      * @param mixed $component the component to add
      * @return void
      */
-    public function add_component($component)
+    public function addComponent($component)
     {
         $this->components[$component->getId()] = $component;
     }
@@ -30,7 +30,7 @@ Class ComponentHandler {
      * @param mixed $id the id from the component
      * @return bool returns true if the component exist, false if not
      */
-    public function exist_component($id): bool {
+    public function existComponent($id): bool {
         return array_key_exists($id, $this->components);
     }
 

@@ -13,7 +13,7 @@ class ModuleHandler
      * @param Module $module the module to add
      * @return void
      */
-    public function add_module(Module $module)
+    public function addModule(Module $module)
     {
         $this->modules[$module->getId()] = $module;
     }
@@ -23,7 +23,7 @@ class ModuleHandler
      * @param mixed $type the type for the modul
      * @return Module|null the Module if it exist otherwise null
      */
-    public function get_module_by_type($type)
+    public function getModuleFromType($type)
     {
         foreach ($this->modules as $module)
         {
@@ -40,7 +40,7 @@ class ModuleHandler
      * @param mixed $id the id from the module
      * @return Module|null the Module if it exist otherwise null
      */
-    public function get_module_by_id($id)
+    public function getModuleWithID($id)
     {
         foreach ($this->modules as $module)
         {
@@ -57,7 +57,7 @@ class ModuleHandler
      * @param mixed $quanta the Quanta instance
      * @return void
      */
-    public function load_modules($quanta)
+    public function loadModules($quanta)
     {
         foreach ($this->modules as $module)
         {
@@ -69,7 +69,7 @@ class ModuleHandler
      * Dispose the modules
      * @return void
      */
-    public function dispose_modules()
+    public function disposeModules()
     {
         foreach ($this->modules as $module)
         {

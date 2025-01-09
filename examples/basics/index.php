@@ -1,7 +1,9 @@
 <?php
 require 'vendor/autoload.php'; 
+use Quanta\Core\QueryParameterRoute;
 use Quanta\Quanta;
 use Quanta\Core\Component;
+use Quanta\Core\Route;
 
 // Create the quanta instance
 $quanta = new Quanta();  
@@ -12,11 +14,10 @@ class MyComponent extends Component {
         return "<h1>Hello Quanta</h1>";
     }
 }
-$quanta->componentHandler->add_component(new MyComponent("home_component"));
+$quanta->componentHandler->addComponent(new MyComponent("homeComponent"));
 
 // Register an simple route and call the url: https://yourpage.com/?page=home
-$quanta->routeHandler->initial_routing();
-$quanta->routeHandler->register_route("home", "home_component");
+$quanta->routeHandler->addRoute(new QueryParameterRoute("home", "page", "home", "homeComponent"));
 
 // Process the routing
-$quanta->process_routing();
+$quanta->processRouting();

@@ -13,7 +13,7 @@ class ErrorMessage extends Message
         $this->message = $message;
     }
 
-    public function render_message($quanta)
+    public function renderMessage($quanta)
     {
         return "<div class='alert alert-danger'>{$this->message}</div>";
     }
@@ -31,7 +31,7 @@ class WarningMessage extends Message
         $this->message = $message;
     }
 
-    public function render_message($quanta)
+    public function renderMessage($quanta)
     {
         return "<div class='alert alert-warning'>{$this->message}</div>";
     }
@@ -49,7 +49,7 @@ class SuccessMessage extends Message
         $this->message = $message;
     }
 
-    public function render_message($quanta)
+    public function renderMessage($quanta)
     {
         return "<div class='alert alert-success'>{$this->message}</div>";
     }
