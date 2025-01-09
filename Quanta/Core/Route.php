@@ -77,7 +77,7 @@ class CleanRoute extends Route
 
     public function process(Quanta $quanta, string $url)
     {
-        $requestPath = parse_url($url, PHP_URL_PATH);
+        // $requestPath = parse_url($url, PHP_URL_PATH);
         if ($requestPath === $this->pattern) {
             $quanta->renderComponent($this->componentId);
         }
