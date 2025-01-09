@@ -77,7 +77,8 @@ class CleanRoute extends Route
 
     public function process(Quanta $quanta, string $url)
     {
-        if (in_array($url, $this->params))
+        $cleanUrl = strtok($url,'?');
+        if (in_array($cleanUrl, $this->params))
         {
             $quanta->renderComponent($this->componentId);
         }
