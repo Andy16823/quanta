@@ -1,5 +1,7 @@
 <?php
 namespace Quanta\Core;
+
+use Quanta\Quanta;
 /**
  * The base class for the components
  */
@@ -7,7 +9,7 @@ abstract class Component
 {
     protected $id;
 
-    abstract public function render($quanta, $data);
+    abstract public function render(Quanta $quanta, mixed $data);
 
     public function __construct($id)
     {

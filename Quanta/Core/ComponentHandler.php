@@ -41,7 +41,7 @@ Class ComponentHandler {
      * @param mixed $data the data wich get passed to the render function
      * @return void
      */
-    public function render($quanta, $id, $data) {
+    public function render(Quanta $quanta, string $id, mixed $data) {
         if(array_key_exists($id, $this->components)) {
             echo $this->components[$id]->render($quanta, $data);
         }
