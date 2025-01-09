@@ -115,14 +115,12 @@ class SimplePatternRoute extends Route
 {
     protected string $pattern;
     protected mixed $callback;
-    protected bool $cleanUrl;
 
-    public function __construct(string $routeId, string $pattern, bool $cleanUrl, callable $callback)
+    public function __construct(string $routeId, string $pattern, callable $callback)
     {
         parent::__construct($routeId);
         $this->pattern = $this->parsePattern($pattern);
         $this->callback = $callback;
-        $this->cleanUrl = $cleanUrl;
     }
 
     private function parsePattern(string $pattern): array|string|null {
@@ -131,9 +129,6 @@ class SimplePatternRoute extends Route
 
     public function process(Quanta $quanta, string $url)
     {
-        if($this->cleanUrl) {
-            $url = strtok($url,'?');
-        }
         if (preg_match_all($this->pattern, $url, $matches))
         {
             call_user_func($this->callback, $quanta, $url, $matches);
