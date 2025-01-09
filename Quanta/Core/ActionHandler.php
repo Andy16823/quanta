@@ -52,7 +52,8 @@ class ActionHandler
      */
     public function buildActionURL(string $action, string $baseurl = null): string
     {
-        if ($baseurl === null) { 
+        if ($baseurl === null)
+        {
             $baseurl = Quanta::getCurrentURL();
         }
         return $baseurl . '?' . $this->actionParam . '=' . $action;
@@ -64,7 +65,7 @@ class ActionHandler
      * @param mixed $redirect determines if redirect or not
      * @return void
      */
-    public function process($quanta, $redirect = true)
+    public function process(Quanta $quanta, bool $redirect = true)
     {
         if (isset($_GET[$this->actionParam]))
         {
