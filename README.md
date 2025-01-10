@@ -1,5 +1,5 @@
 # Quanta
-![Quanta-Logo](https://getquanta.dev/images/logo-256.webp)
+![Quanta-Logo](https://getquanta.dev/images/logo-256.png)
 [Quanta](https://getquanta.dev/) is a modern and modular PHP framework designed for developers who prioritize simplicity, flexibility, and scalability. With its component-based architecture and intuitive design, Quanta is the perfect solution for building modern web applications efficiently.
 
 ---
