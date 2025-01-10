@@ -39,69 +39,6 @@ git clone https://github.com/Andy16823/quanta.git
 
 You can read our starter guide here: [https://getquanta.dev/learn](https://getquanta.dev/learn)
 
-### Actions
-
-Actions allow you to handle server-side logic. For example:
-
-```php
-class SaveUserAction extends Action {
-    public function execute($quanta): string|bool {
-        $username = $_POST['username'];
-        $email = $_POST['email'];
-        $quanta->databaseHandler->query("INSERT INTO users (username, email) VALUES (?, ?)", [$username, $email]);
-        return false; // false because we dont want to redirect
-    }
-}
-$quanta->actionHandler->add_action(new SaveUserAction("save_user"));
-```
-
-Trigger actions via HTTP requests like `http://localhost/?action=save_user`.
-
----
-
-## Example: Building a User Management Module
-
-Create a `UserModule` for handling user data:
-
-```php
-class UserModule extends Module
-{
-    private ?Quanta $quanta;
-
-    public function load($quanta)
-    {
-        $this->quanta = $quanta;
-        $this->initializeDatabase();
-    }
-
-    private function initializeDatabase()
-    {
-        $sql = "CREATE TABLE IF NOT EXISTS users (
-            id INT AUTO_INCREMENT PRIMARY KEY,
-            username VARCHAR(50) NOT NULL,
-            email VARCHAR(100) NOT NULL
-        )";
-        $this->quanta->databaseHandler->query($sql);
-    }
-
-    public function addUser($username, $email)
-    {
-        $this->quanta->databaseHandler->query(
-            "INSERT INTO users (username, email) VALUES (?, ?)", [$username, $email]
-        );
-    }
-
-    public function fetchUsers()
-    {
-        return $this->quanta->databaseHandler->query("SELECT * FROM users");
-    }
-}
-
-$quanta->moduleHandler->add_module(new UserModule("user_module"));
-```
-
----
-
 ## Contributing
 
 We welcome contributions from the community! Feel free to submit pull requests, report issues, or share your modules.
