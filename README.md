@@ -35,57 +35,9 @@ Alternatively, you can clone the repository manually and include the framework i
 git clone https://github.com/Andy16823/quanta.git
 ```
 
-### Setting Up Your First Route and Components
+### How to use Quanta
 
-Add the following code to `index.php` to set up your first route:
-
-```php
-<?php
-require 'vendor/autoload.php'; 
-use Quanta\Quanta;
-use Quanta\Core\Component;
-
-// Create the quanta instance
-$quanta = new Quanta();  
-
-// Create an simple component
-class MyComponent extends Component {
-    public function render($quanta, $data) {
-        return "<h1>Hello Quanta</h1>";
-    }
-}
-$quanta->componentHandler->add_component(new MyComponent("home_component"));
-
-// Register an simple route and call the url: https://yourpage.com/?page=home
-$quanta->routeHandler->initial_routing();
-$quanta->routeHandler->register_route("home", "home_component");
-
-// Process the routing
-$quanta->process_routing();
-```
-
-You can also load a PHP template directly into your component. If your component requires 
-dynamic data, you can pass an associative array of variables to the `load_template` function. 
-These variables will be accessible within the template, making it easier 
-to separate logic from presentation.
-
-```php
-class UserProfileComponent extends Component
-{
-    public function render($quanta, $data) {
-        // Add or modify variables in the $data array
-        $data["username"] = "JohnDoe"; // Default value or overwrite
-        $data["email"] = $data["email"] ?? "unknown@example.com"; // Fallback value
-        $data["role"] = $data["role"] ?? "Guest";
-
-        // Load the template with the enriched data
-        return $quanta->load_template("templates/user-profile.php", $data);
-    }
-}
-$quanta->componentHandler->add_component(new UserProfileComponent("userProfile"));
-```
-
-Visit `http://localhost/?page=home` to see your component in action.
+You can read our starter guide here: [https://getquanta.dev/learn](https://getquanta.dev/learn)
 
 ### Actions
 
