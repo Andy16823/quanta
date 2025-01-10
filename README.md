@@ -35,7 +35,7 @@ Alternatively, you can clone the repository manually and include the framework i
 git clone https://github.com/Andy16823/quanta.git
 ```
 
-### How to use Quanta
+## How to use Quanta
 
 You can read our starter guide here: [https://getquanta.dev/learn](https://getquanta.dev/learn)
 
