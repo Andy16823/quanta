@@ -207,7 +207,6 @@ class Quanta
             if(isset($config['assets'])) {
                 $assets = $config['assets'];
                 $this->assetHandler->loadAssets($assets);
-                var_dump($this->assetHandler);
             }
         }
     }
