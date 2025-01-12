@@ -68,6 +68,17 @@ class Quanta
     }
 
     /**
+     * Returns the current domain with the protocol
+     * @return string
+     */
+    public static function getDomain(): string {
+        $protocol = (!empty($_SERVER["HTTPS"]) && $_SERVER["HTTPS"] !== 'off') ? "https" : "http";
+        $domain = $_SERVER["HTTP_HOST"];
+
+        return $protocol . "://" . $domain;
+    }
+
+    /**
      * Returns the current url without any parameters
      * @return array|bool|int|string|null
      */
@@ -144,5 +155,14 @@ class Quanta
             return $templateContent;
         }
         return false;
+    }
+
+    /**
+     * Builds an url with the current domain and the url path
+     * @param string $path the path for the url
+     * @return string the builded domain
+     */
+    public function buildUrl(string $path): string {
+        return Quanta::getDomain() . $path;
     }
 }
