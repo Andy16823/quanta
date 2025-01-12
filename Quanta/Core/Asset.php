@@ -23,10 +23,6 @@ abstract class Asset {
         $this->params[$name] = $value;
     }
 
-    public function __isset($name): void {
-        echo "Non-existent param '$name'";
-    }
-
     public function __unset($name) {
         $this->params[$name] = null;
     }
