@@ -7,7 +7,7 @@ use Quanta\Quanta;
 
 class AssetHandler
 {
-    public array $assets;
+    protected array $assets;
 
     public function __construct()
     {
