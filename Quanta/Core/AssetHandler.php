@@ -35,6 +35,7 @@ class AssetHandler
 
     public function renderAssets(Quanta $quanta, string $type)
     {
+        var_dump($this->assets);
         foreach ($this->assets as $asset)
         {
             echo "asset: " . $asset->getType();
