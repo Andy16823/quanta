@@ -37,7 +37,7 @@ class AssetHandler
     {
         foreach ($this->assets as $key => $value)
         {
-            if ($value->getType($quanta) == $type)
+            if ($value->getType() == $type)
             {
                 echo $value->render($quanta);
             }
