@@ -19,7 +19,8 @@ class LinkAsset extends Asset
         $html = "<" . $this->type;
         foreach ($this->params as $key => $value)
         {
-            $html .= " " . htmlspecialchars($key) . "=\"" . htmlspecialchars($value) . "\"";
+            $param_value = $quanta->assetHandler->prepareParamValue($value);
+            $html .= " " . htmlspecialchars($key) . "=\"" . htmlspecialchars($param_value) . "\"";
         }
         $html .= ">";
         return $html;

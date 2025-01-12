@@ -76,4 +76,10 @@ class AssetHandler
             }
         }
     }
+
+    public function prepareParamValue(string $paramValue)
+    {
+        $paramValue = preg_replace("/\{QUANTA_DOMAIN\}/", Quanta::getDomain(), $paramValue);
+        return $paramValue;
+    }
 }
