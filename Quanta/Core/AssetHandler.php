@@ -35,11 +35,12 @@ class AssetHandler
 
     public function renderAssets(Quanta $quanta, string $type)
     {
-        foreach ($this->assets as $key => $value)
+        foreach ($this->assets as $asset)
         {
-            if ($value->getType() == $type)
+            echo "asset: " . $asset->getType();
+            if ($asset->getType() == $type)
             {
-                echo $value->render($quanta);
+                echo $asset->render($quanta);
             }
         }
     }
