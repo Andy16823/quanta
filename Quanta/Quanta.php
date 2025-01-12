@@ -1,5 +1,7 @@
 <?php
 namespace Quanta;
+
+use Quanta\Core\Assets\LinkAsset;
 session_start();
 
 require_once(__DIR__ . "/Core/Message.php");
@@ -193,11 +195,20 @@ class Quanta
         $this->assetHandler->renderAssets($this, $type);
     }
 
+    /**
+     * Loads an config file
+     * @param string $file the path to the config file
+     * @return void
+     */
     public function loadConfig(string $file) {
         if(file_exists($file)) {
             $file_contents = file_get_contents($file);
             $config = json_decode($file_contents, true);
-            var_dump($config);
+            if(isset($config['assets'])) {
+                $assets = $config['assets'];
+                $this->assetHandler->loadAssets($assets);
+                var_dump($this->assetHandler);
+            }
         }
     }
 }

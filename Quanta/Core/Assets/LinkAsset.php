@@ -6,7 +6,13 @@ use Quanta\Core\Asset;
 
 class LinkAsset extends Asset
 {
-    protected $type = "link";
+    protected string $type;
+
+    public function __construct(string $assetId)
+    {
+        parent::__construct($assetId);
+        $this->type = $this->getType();
+    }
 
     public function render(Quanta $quanta): string
     {
@@ -19,8 +25,15 @@ class LinkAsset extends Asset
         return $html;
     }
 
-    public function getType(Quanta $quanta): string
+    public static function getType(): string
     {
-        return $this->type;
+        return "link";
+    }
+
+    public static function fromArray(Quanta $quanta, array $data): Asset
+    {
+        $asset = new LinkAsset($data["name"]);
+        $asset->setPrams($data["params"]);
+        return $asset;
     }
 }

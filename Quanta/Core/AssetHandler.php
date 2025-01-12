@@ -1,6 +1,8 @@
 <?php
 namespace Quanta\Core;
 
+use Quanta\Core\Assets\LinkAsset;
+use Quanta\Core\Assets\ScriptAsset;
 use Quanta\Quanta;
 
 class AssetHandler
@@ -48,6 +50,30 @@ class AssetHandler
         if ($asset)
         {
             echo $asset->render($quanta);
+        }
+    }
+
+    /**
+     * Loads the assets from an asset array
+     * @param array $assets
+     * @return void
+     */
+    public function loadAssets(array $assets)
+    {
+        foreach ($assets as $asset)
+        {
+            if ($asset["type"] == LinkAsset::getType())
+            {
+                $linkAsset = new LinkAsset($asset["name"]);
+                $linkAsset->setPrams($asset["params"]);
+                $this->addAsset($linkAsset);
+            }
+            else if ($asset["type"] == ScriptAsset::getType())
+            {
+                $scriptAsset = new ScriptAsset($asset["name"]);
+                $scriptAsset->setPrams($asset["params"]);
+                $this->addAsset($scriptAsset);
+            }
         }
     }
 }
