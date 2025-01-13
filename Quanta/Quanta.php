@@ -249,4 +249,19 @@ class Quanta
             }
         }
     }
+
+    public function redirect403()
+    {
+        if (substr($_SERVER['HTTP_HOST'], 0, 4) === 'www.')
+        {
+            $newHost = substr($_SERVER['HTTP_HOST'], 4);
+            $requestUri = $_SERVER['REQUEST_URI'];
+            $newUrl = 'https://' . $newHost . $requestUri;
+
+            header("HTTP/1.1 301 Moved Permanently");
+            header("Location: " . $newUrl);
+            header("Connection: close");
+            exit();
+        }
+    }
 }
