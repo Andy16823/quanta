@@ -6,7 +6,7 @@ use Quanta\Quanta;
 abstract class Route
 {
     public string $routeId;
-    public mixed $prepareCallback;
+    public mixed $prepareCallback = null;
 
     public function __construct(string $routeId)
     {
