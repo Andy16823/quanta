@@ -50,7 +50,7 @@ class DefaultRoute extends Route
         {
             if ($this->prepareCallback !== null)
             {
-                call_user_func($this->prepareCallback, $quanta, $url);
+                call_user_func($this->prepareCallback, $quanta, $url, null);
             }
         }
     }
@@ -97,7 +97,7 @@ class QueryParameterRoute extends Route
         {
             if ($this->prepareCallback !== null)
             {
-                call_user_func($this->prepareCallback, $quanta, $url);
+                call_user_func($this->prepareCallback, $quanta, $url, null);
             }
         }
     }
@@ -142,7 +142,7 @@ class CleanRoute extends Route
         {
             if ($this->prepareCallback !== null)
             {
-                call_user_func($this->prepareCallback, $quanta, $url);
+                call_user_func($this->prepareCallback, $quanta, $url, null);
             }
         }
     }
