@@ -22,6 +22,7 @@ require_once(__DIR__ . "/Core/Asset.php");
 require_once(__DIR__ . "/Core/Assets/LinkAsset.php");
 require_once(__DIR__ . "/Core/Assets/ScriptAsset.php");
 
+// Core modules and dependencies
 use Quanta\Core\Module;
 use Quanta\Core\Memory;
 use Quanta\Core\ActionHandler;
@@ -33,6 +34,9 @@ use Quanta\Core\MessageHandler;
 use Quanta\Core\Asset;
 use Quanta\Core\AssetHandler;
 
+/**
+ * The main Quanta class, responsible for managing the core components and modules of the application.
+ */
 class Quanta
 {
     public ?Memory $memory;
@@ -44,6 +48,9 @@ class Quanta
     public ?MessageHandler $messageHandler;
     public ?AssetHandler $assetHandler;
 
+    /**
+     * Constructor to initialize all handlers and core components.
+     */
     public function __construct()
     {
         $this->actionHandler = new ActionHandler();
@@ -56,6 +63,9 @@ class Quanta
         $this->assetHandler = new AssetHandler();
     }
 
+    /**
+     * Destructor to clean up all handlers and release resources.
+     */
     public function __destruct()
     {
         $this->moduleHandler->disposeModules($this);
@@ -70,7 +80,16 @@ class Quanta
     }
 
     /**
-     * Fetch the messages from the message que
+     * Prepares the application environment, such as setting up routes.
+     */
+    public function prepareEnvironment()
+    {
+        $this->routeHandler->prepareRoute($this);
+    }
+
+    /**
+     * Fetches all messages from the message queue.
+     * 
      * @return void
      */
     public function fetchMessages()
@@ -79,10 +98,12 @@ class Quanta
     }
 
     /**
-     * Returns the current domain with the protocol
-     * @return string
+     * Retrieves the current domain with the protocol (http or https).
+     * 
+     * @return string The current domain with protocol.
      */
-    public static function getDomain(): string {
+    public static function getDomain(): string
+    {
         $protocol = (!empty($_SERVER["HTTPS"]) && $_SERVER["HTTPS"] !== 'off') ? "https" : "http";
         $domain = $_SERVER["HTTP_HOST"];
 
@@ -90,8 +111,9 @@ class Quanta
     }
 
     /**
-     * Returns the current url without any parameters
-     * @return array|bool|int|string|null
+     * Retrieves the current URL without query parameters.
+     * 
+     * @return string|null The path of the current URL.
      */
     public static function getCurrentURL()
     {
@@ -99,8 +121,9 @@ class Quanta
     }
 
     /**
-     * Process the action commands
-     * @param mixed $redirect if true you can redirect to the given url from the action return.
+     * Processes actions and handles redirects if required.
+     * 
+     * @param bool $redirect Whether to handle redirects based on action output.
      * @return void
      */
     public function processAction($redirect = true)
@@ -109,7 +132,9 @@ class Quanta
     }
 
     /**
-     * Process the routing
+     * Handles routing logic to render components based on the current URL.
+     * 
+     * @param string $defaultComponent Default component to render if no route matches.
      * @return void
      */
     public function processRouting($defaultComponent = "")
@@ -118,9 +143,10 @@ class Quanta
     }
 
     /**
-     * Renders the given component
-     * @param string $id the component id
-     * @param mixed $data an array with data wich passed to the component render function
+     * Renders the specified component.
+     * 
+     * @param string $id Component ID to render.
+     * @param array $data Data passed to the component.
      * @return void
      */
     public function renderComponent(string $id, mixed $data = [])
@@ -129,7 +155,8 @@ class Quanta
     }
 
     /**
-     * Loads the modules
+     * Loads all available modules into the application.
+     * 
      * @return void
      */
     public function loadModules()
@@ -138,9 +165,10 @@ class Quanta
     }
 
     /**
-     * Adds an module
-     * @param Module $module the module to add
-     * @return Module the added module
+     * Adds a module to the application.
+     * 
+     * @param Module $module The module to add.
+     * @return Module The added module.
      */
     public function addModule(Module $module): Module
     {
@@ -149,10 +177,11 @@ class Quanta
     }
 
     /**
-     * Loads an template from the fiven filename
-     * @param mixed $filename the path to the file
-     * @param mixed $params the parameters wich passed to the template wich gets loaded
-     * @return bool|string returns the loaded template as string or false if the file dont exist
+     * Loads a template from the specified file.
+     * 
+     * @param string $filename Path to the template file.
+     * @param array $params Parameters to pass to the template.
+     * @return string|false The rendered template content or false if the file doesn't exist.
      */
     public function loadTemplate($filename, $params = [])
     {
@@ -169,42 +198,52 @@ class Quanta
     }
 
     /**
-     * Builds an url with the current domain and the url path
-     * @param string $path the path for the url
-     * @return string the builded domain
+     * Constructs a URL using the current domain and a given path.
+     * 
+     * @param string $path The URL path.
+     * @return string The full URL.
      */
-    public function buildUrl(string $path): string {
+    public function buildUrl(string $path): string
+    {
         return Quanta::getDomain() . $path;
     }
 
     /**
-     * Renders the asset with the given assetId
-     * @param mixed $assetId the id for the asset
+     * Renders a specific asset by its ID.
+     * 
+     * @param string $assetId The asset ID to render.
      * @return void
      */
-    public function renderAsset($assetId) {
+    public function renderAsset($assetId)
+    {
         $this->assetHandler->renderAsset($this, $assetId);
     }
 
     /**
-     * Renders the assets with the given type
-     * @param mixed $type
+     * Renders all assets of a specific type.
+     * 
+     * @param string $type The type of assets to render (e.g., "css" or "js").
      * @return void
      */
-    public function renderAssets($type) {
+    public function renderAssets($type)
+    {
         $this->assetHandler->renderAssets($this, $type);
     }
 
     /**
-     * Loads an config file
-     * @param string $file the path to the config file
+     * Loads a configuration file and processes its contents.
+     * 
+     * @param string $file Path to the configuration file.
      * @return void
      */
-    public function loadConfig(string $file) {
-        if(file_exists($file)) {
+    public function loadConfig(string $file)
+    {
+        if (file_exists($file))
+        {
             $file_contents = file_get_contents($file);
             $config = json_decode($file_contents, true);
-            if(isset($config['assets'])) {
+            if (isset($config['assets']))
+            {
                 $assets = $config['assets'];
                 $this->assetHandler->loadAssets($assets);
             }
