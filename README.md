@@ -38,7 +38,7 @@ git clone https://github.com/Andy16823/quanta.git
 
 ## How to use Quanta
 
-You can read our starter guide here: [https://getquanta.dev/learn](https://getquanta.dev/learn)
+You can read our starter guide here: [https://docs.getquanta.dev](https://docs.getquanta.dev)
 
 ## Contributing
 
