@@ -30,10 +30,10 @@ class MessageHandler
      * @param Message $message the message to add
      * @return void
      */
-    public function addMessage(Message $message)
+    public function addMessage(Quanta $quanta, Message $message)
     {
         $message->setMessageID(uniqid());
-        $_SESSION["flash_messages"][$message->getMessageID()] = $message;
+        $_SESSION["flash_messages"][$message->getMessageID()] = $message->renderMessage($quanta);
     }
 
     /**
@@ -45,7 +45,7 @@ class MessageHandler
     {
         foreach ($_SESSION["flash_messages"] as $message)
         {
-            echo $message->renderMessage($quanta);
+            echo $message;
         }
         $_SESSION["flash_messages"] = array();
     }

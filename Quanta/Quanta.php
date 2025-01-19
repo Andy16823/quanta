@@ -97,6 +97,10 @@ class Quanta
         $this->messageHandler->fetchMessages($this);
     }
 
+    public function addMessage($message) {
+        $this->messageHandler->addMessage($this, $message);
+    }
+
     /**
      * Retrieves the current domain with the protocol (http or https).
      * 
