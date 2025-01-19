@@ -76,6 +76,7 @@ class ActionHandler
                 if ($redirect && $result)
                 {
                     header('location: ' . $result);
+                    exit;
                 }
             }
         }
