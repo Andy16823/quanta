@@ -1,4 +1,4 @@
-<?php 
+<?php
 namespace Quanta\Core;
 
 use Quanta\Quanta;
@@ -7,17 +7,22 @@ use Quanta\Core\Message;
 /**
  * Handles the messages
  */
-class MessageHandler {
+class MessageHandler
+{
 
     /**
      * Create an new instance from the message handler
      */
-    public function __construct() {
+    public function __construct()
+    {
         if (session_status() === PHP_SESSION_NONE)
         {
             session_start();
         }
-        $_SESSION["flash_messages"] = array();
+        if (!isset($_SESSION["flash_messages"]))
+        {
+            $_SESSION["flash_messages"] = array();
+        }
     }
 
     /**
@@ -25,7 +30,8 @@ class MessageHandler {
      * @param Message $message the message to add
      * @return void
      */
-    public function addMessage(Message $message) { 
+    public function addMessage(Message $message)
+    {
         $message->setMessageID(uniqid());
         $_SESSION["flash_messages"][$message->getMessageID()] = $message;
     }
@@ -35,8 +41,10 @@ class MessageHandler {
      * @param mixed $quanta the quanta instance
      * @return void
      */
-    public function fetchMessages(Quanta $quanta) {
-        foreach ($_SESSION["flash_messages"] as $message) {
+    public function fetchMessages(Quanta $quanta)
+    {
+        foreach ($_SESSION["flash_messages"] as $message)
+        {
             echo $message->renderMessage($quanta);
         }
         $_SESSION["flash_messages"] = array();
