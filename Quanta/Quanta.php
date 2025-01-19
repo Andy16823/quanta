@@ -243,6 +243,11 @@ class Quanta
             $file_contents = file_get_contents($file);
             $config = json_decode($file_contents, true);
 
+            if (isset($config['appDomain']))
+            {
+                $this->memory->appDomain = $config['appDomain'];
+            }
+
             if (isset($config['baseUrl']))
             {
                 $this->memory->baseUrl = $config['baseUrl'];
