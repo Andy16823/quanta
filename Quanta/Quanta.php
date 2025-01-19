@@ -242,6 +242,12 @@ class Quanta
         {
             $file_contents = file_get_contents($file);
             $config = json_decode($file_contents, true);
+
+            if (isset($config['baseUrl']))
+            {
+                $this->memory->baseUrl = $config['baseUrl'];
+            }
+
             if (isset($config['assets']))
             {
                 $assets = $config['assets'];
