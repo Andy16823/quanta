@@ -97,6 +97,12 @@ class Quanta
         $this->messageHandler->fetchMessages($this);
     }
 
+    /**
+     * Adds a message to the message queue.
+     * 
+     * @param \Quanta\Core\Message $message The message to add.
+     * @return void
+     */
     public function addMessage($message) {
         $this->messageHandler->addMessage($this, $message);
     }
@@ -209,7 +215,14 @@ class Quanta
      */
     public function buildUrl(string $path): string
     {
-        return Quanta::getDomain() . $path;
+        if ($this->memory->appDomain !== null && $this->memory->baseUrl !== null)
+        {
+            return $this->memory->appDomain . $this->memory->baseUrl . $path;
+        }
+        else
+        {
+            return Quanta::getDomain() . $path;
+        }
     }
 
     /**
