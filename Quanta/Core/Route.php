@@ -18,7 +18,7 @@ abstract class Route
         $this->prepareCallback = $prepareCallback;
     }
 
-    abstract protected function isRoute(Quanta $quanta, string $url) : mixed;
+    abstract public function isRoute(Quanta $quanta, string $url) : mixed;
     abstract public function prepare(Quanta $quanta, string $url);
     abstract public function process(Quanta $quanta, string $url);
 }
@@ -35,7 +35,7 @@ class DefaultRoute extends Route
         $this->componentId = $componentId;
     }
 
-    protected function isRoute(Quanta $quanta, string $url): bool
+    public function isRoute(Quanta $quanta, string $url): bool
     {
         if (!isset($_GET[$this->queryParameterName]))
         {
@@ -79,7 +79,7 @@ class QueryParameterRoute extends Route
         $this->componentId = $componentId;
     }
 
-    protected function isRoute(Quanta $quanta, string $url): bool
+    public function isRoute(Quanta $quanta, string $url): bool
     {
         if (isset($_GET[$this->queryParameterName]))
         {
@@ -170,7 +170,7 @@ class PatternRoute extends Route
         $this->cleanUrl = $cleanUrl;
     }
 
-    protected function isRoute(Quanta $quanta, string $url): array|bool|null
+    public function isRoute(Quanta $quanta, string $url): array|bool|null
     {
         if ($this->cleanUrl)
         {
@@ -222,7 +222,7 @@ class SimplePatternRoute extends Route
         return '#^' . preg_replace("/\{([a-zA-Z0-9_]+)\}/", "(?P<$1>[^/]+)", $pattern) . '$#';
     }
 
-    protected function isRoute(Quanta $quanta, string $url): array|bool|null
+    public function isRoute(Quanta $quanta, string $url): array|bool|null
     {
         $url = strtok($url, '?');
         if (preg_match_all($this->pattern, $url, $matches))

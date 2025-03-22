@@ -75,4 +75,15 @@ class RouteHandler
             $route->process($quanta, $requestUri);
         }
     }
+
+    public function matchRoute(Quanta $quanta, $routeId): bool {
+        $requestUri = $_SERVER['REQUEST_URI'];
+        $route = $this->routes[$routeId];
+        if($route) {
+            if($route->isRoute($quanta, $requestUri)) {
+                return true;
+            }
+        }
+        return false;
+    }
 }

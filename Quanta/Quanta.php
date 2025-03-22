@@ -153,6 +153,16 @@ class Quanta
     }
 
     /**
+     * Matches a specific route based on its ID.
+     * 
+     * @param string $routeId The route ID to match.
+     * @return bool Whether the route was matched.
+     */
+    public function matchRoute($routeId): bool {
+        return $this->routeHandler->matchRoute($this, $routeId);
+    }
+
+    /**
      * Renders the specified component.
      * 
      * @param string $id Component ID to render.
