@@ -45,6 +45,18 @@ class DatabaseHandler
     }
 
     /**
+     * Performs an prepared execution to the database
+     * @param mixed $sql
+     * @param mixed $params
+     * @return bool
+     */
+    public function execute($sql, $params = [])
+    {
+        $stmt = $this->pdo->prepare($sql);
+        return $stmt->execute($params);
+    }
+
+    /**
      * Recives the last insert id
      * @return bool|string the last insert id or false if nothing was insert
      */
