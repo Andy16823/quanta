@@ -21,6 +21,8 @@ require_once(__DIR__ . "/Core/AssetHandler.php");
 require_once(__DIR__ . "/Core/Asset.php");
 require_once(__DIR__ . "/Core/Assets/LinkAsset.php");
 require_once(__DIR__ . "/Core/Assets/ScriptAsset.php");
+require_once(__DIR__ . "/Core/Script.php");
+require_once(__DIR__ . "/Core/ScriptHandler.php");
 
 // Core modules and dependencies
 use Quanta\Core\Module;
@@ -33,6 +35,8 @@ use Quanta\Core\ModuleHandler;
 use Quanta\Core\MessageHandler;
 use Quanta\Core\Asset;
 use Quanta\Core\AssetHandler;
+use Quanta\Core\Script;
+use Quanta\Core\ScriptHandler;
 
 /**
  * The main Quanta class, responsible for managing the core components and modules of the application.
@@ -47,6 +51,7 @@ class Quanta
     public ?ModuleHandler $moduleHandler;
     public ?MessageHandler $messageHandler;
     public ?AssetHandler $assetHandler;
+    public ?ScriptHandler $scriptHandler;
 
     /**
      * Constructor to initialize all handlers and core components.
@@ -61,6 +66,7 @@ class Quanta
         $this->moduleHandler = new ModuleHandler();
         $this->messageHandler = new MessageHandler();
         $this->assetHandler = new AssetHandler();
+        $this->scriptHandler = new ScriptHandler();
     }
 
     /**
@@ -77,6 +83,7 @@ class Quanta
         $this->moduleHandler = null;
         $this->messageHandler = null;
         $this->assetHandler = null;
+        $this->scriptHandler = null;
     }
 
     /**
@@ -103,7 +110,8 @@ class Quanta
      * @param \Quanta\Core\Message $message The message to add.
      * @return void
      */
-    public function addMessage($message) {
+    public function addMessage($message)
+    {
         $this->messageHandler->addMessage($this, $message);
     }
 
@@ -158,7 +166,8 @@ class Quanta
      * @param string $routeId The route ID to match.
      * @return bool Whether the route was matched.
      */
-    public function matchRoute($routeId): bool {
+    public function matchRoute($routeId): bool
+    {
         return $this->routeHandler->matchRoute($this, $routeId);
     }
 
@@ -288,6 +297,11 @@ class Quanta
         }
     }
 
+    /**
+     * Redirects to a 403 page if the request is made from a 'www.' subdomain.
+     * 
+     * @return void
+     */
     public function redirect403()
     {
         if (substr($_SERVER['HTTP_HOST'], 0, 4) === 'www.')
@@ -301,5 +315,59 @@ class Quanta
             header("Connection: close");
             exit();
         }
+    }
+
+    /**
+     * Gets a script by its ID.
+     * 
+     * @param string $scriptId
+     * @return Script|null
+     */
+    public function getScript(string $scriptId): ?Script
+    {
+        return $this->scriptHandler->getScript($scriptId);
+    }
+
+    /**
+     * Processes all scripts and returns their output.
+     * 
+     * @return string
+     */
+    public function processScripts(): string
+    {
+        return $this->scriptHandler->processScripts($this);
+    }
+
+    /**
+     * Processes a specific script by its ID.
+     * 
+     * @param string $scriptId
+     * @return string
+     */
+    public function processScript(string $scriptId): string
+    {
+        return $this->scriptHandler->processScript($this, $scriptId);
+    }
+
+    /**
+     * Removes a script by its ID.
+     * 
+     * @param string $scriptId
+     * @return void
+     */
+    public function removeScript(string $scriptId)
+    {
+        $this->scriptHandler->removeScript($scriptId);
+    }
+
+    /**
+     * Adds a script to the script handler.
+     * 
+     * @param Script $script The script to add.
+     * @return void
+     */
+    public function addScript(Script $script)
+    {
+        $this->scriptHandler->addScript($script);
     }
 }
