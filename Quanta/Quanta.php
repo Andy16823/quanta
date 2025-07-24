@@ -294,6 +294,14 @@ class Quanta
                 $assets = $config['assets'];
                 $this->assetHandler->loadAssets($assets);
             }
+
+            if (isset($config['vars']))
+            {
+                foreach ($config['vars'] as $key => $value)
+                {
+                    $this->memory->$key = $value;
+                }
+            }
         }
     }
 
