@@ -23,6 +23,7 @@ require_once(__DIR__ . "/Core/Assets/LinkAsset.php");
 require_once(__DIR__ . "/Core/Assets/ScriptAsset.php");
 require_once(__DIR__ . "/Core/Script.php");
 require_once(__DIR__ . "/Core/ScriptHandler.php");
+require_once(__DIR__ . "/Core/EventHandler.php");
 
 // Core modules and dependencies
 use Quanta\Core\Module;
@@ -37,6 +38,7 @@ use Quanta\Core\Asset;
 use Quanta\Core\AssetHandler;
 use Quanta\Core\Script;
 use Quanta\Core\ScriptHandler;
+use Quanta\Core\EventHandler;
 
 /**
  * The main Quanta class, responsible for managing the core components and modules of the application.
@@ -52,6 +54,7 @@ class Quanta
     public ?MessageHandler $messageHandler;
     public ?AssetHandler $assetHandler;
     public ?ScriptHandler $scriptHandler;
+    public ?EventHandler $eventHandler;
 
     /**
      * Constructor to initialize all handlers and core components.
@@ -67,6 +70,7 @@ class Quanta
         $this->messageHandler = new MessageHandler();
         $this->assetHandler = new AssetHandler();
         $this->scriptHandler = new ScriptHandler();
+        $this->eventHandler = new EventHandler();
     }
 
     /**
@@ -84,6 +88,7 @@ class Quanta
         $this->messageHandler = null;
         $this->assetHandler = null;
         $this->scriptHandler = null;
+        $this->eventHandler = null;
     }
 
     /**
@@ -377,5 +382,20 @@ class Quanta
     public function addScript(Script $script)
     {
         $this->scriptHandler->addScript($script);
+    }
+
+    /**
+     * Triggers an event with the specified name and arguments.
+     * 
+     * @param string $eventName The name of the event to trigger.
+     * @param mixed ...$args Additional arguments to pass to the event callbacks.
+     * @return void
+     */
+    public function triggerEvent($eventName, ...$args)
+    {
+        if ($this->eventHandler !== null)
+        {
+            $this->eventHandler->triggerEvent($this, $eventName, ...$args);
+        }
     }
 }

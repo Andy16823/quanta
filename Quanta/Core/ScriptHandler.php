@@ -63,6 +63,27 @@ class ScriptHandler
     }
 
     /**
+     * Call a JavaScript function with arguments.
+     * @param string $function the name of the function to call.
+     * @param bool $inline whether to call the function inline or not.
+     * @param mixed ...$args the arguments to pass to the function.
+     * @return string
+     */
+    public function callFunction(string $function, bool $inline, ...$args)
+    {
+        if ($inline)
+        {
+            $argsStr = implode(', ', array_map(fn($a) => json_encode($a), $args));
+            return "{$function}({$argsStr})";
+        }
+        else
+        {
+            $argsStr = implode(', ', array_map(fn($a) => json_encode($a), $args));
+            return "<script>{$function}({$argsStr});</script>";
+        }
+    }
+
+    /**
      * Remove a script by its ID.
      * @param string $scriptId
      * @return void
