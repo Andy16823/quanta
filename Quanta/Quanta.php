@@ -398,4 +398,28 @@ class Quanta
             $this->eventHandler->triggerEvent($this, $eventName, ...$args);
         }
     }
+
+    /**
+     * Redirects to a specified URL.
+     * 
+     * @param string $url The URL to redirect to.
+     * @return void
+     */
+    function redirect(string $url)
+    {
+        header("Location: " . $url);
+        exit();
+    }
+
+    /**
+     * Redirects to a specified URL using JavaScript.
+     * 
+     * @param string $url The URL to redirect to.
+     * @return void
+     */
+    function redirectJs(string $url)
+    {
+        echo "<script>window.location.href = '" . htmlspecialchars($url, ENT_QUOTES, 'UTF-8') . "';</script>";
+        exit();
+    }
 }
