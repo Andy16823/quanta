@@ -45,6 +45,19 @@ class DatabaseHandler
     }
 
     /**
+     * Performs an prepared query to the database and returns a single row
+     * @param mixed $sql the query to perform
+     * @param mixed $params the parameters for the query
+     * @return array the dataset
+     */
+    public function queryOne($sql, $params = [])
+    {
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->execute($params);
+        return $stmt->fetch(PDO::FETCH_ASSOC);
+    }
+
+    /**
      * Performs an prepared execution to the database
      * @param mixed $sql
      * @param mixed $params
