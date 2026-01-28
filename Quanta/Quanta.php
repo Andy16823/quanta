@@ -337,7 +337,7 @@ class Quanta
                         if (!is_dir($logDir)) {
                             mkdir($logDir, 0755, true);
                         }
-                        $this->memory->logs[$id] = $logInfo['file'];
+                        $this->memory->$id = $logInfo['file'];
                     }
                 }
             }
