@@ -24,6 +24,7 @@ require_once(__DIR__ . "/Core/Assets/ScriptAsset.php");
 require_once(__DIR__ . "/Core/Script.php");
 require_once(__DIR__ . "/Core/ScriptHandler.php");
 require_once(__DIR__ . "/Core/EventHandler.php");
+require_once(__DIR__ . "/Core/ServiceHandler.php");
 
 // Core modules and dependencies
 use Quanta\Core\Module;
@@ -39,6 +40,7 @@ use Quanta\Core\AssetHandler;
 use Quanta\Core\Script;
 use Quanta\Core\ScriptHandler;
 use Quanta\Core\EventHandler;
+use Quanta\Core\ServiceHandler;
 
 /**
  * The main Quanta class, responsible for managing the core components and modules of the application.
@@ -55,7 +57,7 @@ class Quanta
     public ?AssetHandler $assetHandler;
     public ?ScriptHandler $scriptHandler;
     public ?EventHandler $eventHandler;
-
+    public ?ServiceHandler $serviceHandler;
     /**
      * Constructor to initialize all handlers and core components.
      */
@@ -71,6 +73,7 @@ class Quanta
         $this->assetHandler = new AssetHandler();
         $this->scriptHandler = new ScriptHandler();
         $this->eventHandler = new EventHandler();
+        $this->serviceHandler = new ServiceHandler();
     }
 
     /**
@@ -89,6 +92,7 @@ class Quanta
         $this->assetHandler = null;
         $this->scriptHandler = null;
         $this->eventHandler = null;
+        $this->serviceHandler = null;
     }
 
     /**
@@ -220,8 +224,7 @@ class Quanta
     public function loadTemplate($filename, $params = [])
     {
         $params['quanta'] = $this;
-        if (file_exists($filename))
-        {
+        if (file_exists($filename)) {
             extract($params);
             ob_start();
             include($filename);
@@ -239,12 +242,9 @@ class Quanta
      */
     public function buildUrl(string $path): string
     {
-        if ($this->memory->appDomain !== null && $this->memory->baseUrl !== null)
-        {
+        if ($this->memory->appDomain !== null && $this->memory->baseUrl !== null) {
             return $this->memory->appDomain . $this->memory->baseUrl . $path;
-        }
-        else
-        {
+        } else {
             return Quanta::getDomain() . $path;
         }
     }
@@ -279,31 +279,25 @@ class Quanta
      */
     public function loadConfig(string $file)
     {
-        if (file_exists($file))
-        {
+        if (file_exists($file)) {
             $file_contents = file_get_contents($file);
             $config = json_decode($file_contents, true);
 
-            if (isset($config['appDomain']))
-            {
+            if (isset($config['appDomain'])) {
                 $this->memory->appDomain = $config['appDomain'];
             }
 
-            if (isset($config['baseUrl']))
-            {
+            if (isset($config['baseUrl'])) {
                 $this->memory->baseUrl = $config['baseUrl'];
             }
 
-            if (isset($config['assets']))
-            {
+            if (isset($config['assets'])) {
                 $assets = $config['assets'];
                 $this->assetHandler->loadAssets($assets);
             }
 
-            if (isset($config['vars']))
-            {
-                foreach ($config['vars'] as $key => $value)
-                {
+            if (isset($config['vars'])) {
+                foreach ($config['vars'] as $key => $value) {
                     $this->memory->$key = $value;
                 }
             }
@@ -317,8 +311,7 @@ class Quanta
      */
     public function redirect403()
     {
-        if (substr($_SERVER['HTTP_HOST'], 0, 4) === 'www.')
-        {
+        if (substr($_SERVER['HTTP_HOST'], 0, 4) === 'www.') {
             $newHost = substr($_SERVER['HTTP_HOST'], 4);
             $requestUri = $_SERVER['REQUEST_URI'];
             $newUrl = 'https://' . $newHost . $requestUri;
@@ -393,8 +386,7 @@ class Quanta
      */
     public function triggerEvent($eventName, ...$args)
     {
-        if ($this->eventHandler !== null)
-        {
+        if ($this->eventHandler !== null) {
             $this->eventHandler->triggerEvent($this, $eventName, ...$args);
         }
     }
@@ -421,5 +413,26 @@ class Quanta
     {
         echo "<script>window.location.href = '" . htmlspecialchars($url, ENT_QUOTES, 'UTF-8') . "';</script>";
         exit();
+    }
+
+    /**
+     * Registers a service with the service handler.
+     * @param mixed $name
+     * @param mixed $service
+     * @return void
+     */
+    function registerService($name, $service)
+    {
+        $this->serviceHandler->registerService($name, $service);
+    }
+
+    /**
+     * Retrieves a service by name from the service handler.
+     * @param mixed $name
+     * @return mixed
+     */
+    function getService($name)
+    {
+        return $this->serviceHandler->getService($name);
     }
 }
