@@ -331,11 +331,13 @@ class Quanta
             if (isset($config['logs'])) {
                 $logs = $config['logs'];
                 foreach ($logs as $logInfo) {
-                    if (isset($logInfo['file'])) {
+                    if (isset($logInfo['file']) && isset($logInfo['id'])) {
+                        $id = $logInfo['id'];
                         $logDir = dirname($logInfo['file']);
                         if (!is_dir($logDir)) {
                             mkdir($logDir, 0755, true);
                         }
+                        $this->memory->logs[$id] = $logInfo['file'];
                     }
                 }
             }
@@ -473,5 +475,15 @@ class Quanta
     function getService($name)
     {
         return $this->serviceHandler->getService($name);
+    }
+
+    /**
+     * Gets a variable from memory by its key.
+     * @param string $key
+     * @return mixed
+     */
+    function getVar(string $key): mixed
+    {
+        return $this->memory->$key ?? null;
     }
 }
