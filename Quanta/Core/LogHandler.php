@@ -4,9 +4,9 @@ use Quanta\Quanta;
 
 class LogHandler
 {
-    public static const LEVEL_INFO = 'INFO';
-    public static const LEVEL_WARNING = 'WARNING';
-    public static const LEVEL_ERROR = 'ERROR';
+    const LEVEL_INFO = 'INFO';
+    const LEVEL_WARNING = 'WARNING';
+    const LEVEL_ERROR = 'ERROR';
 
     public function log($level, $message, $logfile)
     {
