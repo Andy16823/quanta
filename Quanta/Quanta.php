@@ -438,7 +438,7 @@ class Quanta
      * @param string $url The URL to redirect to.
      * @return void
      */
-    function redirect(string $url)
+    public function redirect(string $url)
     {
         header("Location: " . $url);
         exit();
@@ -450,7 +450,7 @@ class Quanta
      * @param string $url The URL to redirect to.
      * @return void
      */
-    function redirectJs(string $url)
+    public function redirectJs(string $url)
     {
         echo "<script>window.location.href = '" . htmlspecialchars($url, ENT_QUOTES, 'UTF-8') . "';</script>";
         exit();
@@ -462,7 +462,7 @@ class Quanta
      * @param mixed $service
      * @return void
      */
-    function registerService($name, $service)
+    public function registerService($name, $service)
     {
         $this->serviceHandler->registerService($name, $service);
     }
@@ -472,7 +472,7 @@ class Quanta
      * @param mixed $name
      * @return mixed
      */
-    function getService($name)
+    public function getService($name)
     {
         return $this->serviceHandler->getService($name);
     }
@@ -482,7 +482,7 @@ class Quanta
      * @param string $key
      * @return mixed
      */
-    function getVar(string $key): mixed
+    public function getVar(string $key): mixed
     {
         return $this->memory->$key ?? null;
     }
