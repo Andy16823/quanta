@@ -220,6 +220,17 @@ class Quanta
     }
 
     /**
+     * Retrieves a module by its ID.
+     * 
+     * @param string $moduleId The module ID to retrieve.
+     * @return Module|null The module if found, null otherwise.
+     */
+    public function getModule(string $moduleId): ?Module
+    {
+        return $this->moduleHandler->getModuleWithID($moduleId);
+    }
+
+    /**
      * Loads a template from the specified file.
      * 
      * @param string $filename Path to the template file.
