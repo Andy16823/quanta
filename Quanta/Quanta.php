@@ -25,7 +25,6 @@ require_once(__DIR__ . "/Core/Script.php");
 require_once(__DIR__ . "/Core/ScriptHandler.php");
 require_once(__DIR__ . "/Core/EventHandler.php");
 require_once(__DIR__ . "/Core/ServiceHandler.php");
-require_once(__DIR__ . "/Core/LogHandler.php");
 
 // Core modules and dependencies
 use Quanta\Core\Module;
@@ -42,7 +41,6 @@ use Quanta\Core\Script;
 use Quanta\Core\ScriptHandler;
 use Quanta\Core\EventHandler;
 use Quanta\Core\ServiceHandler;
-use Quanta\Core\LogHandler;
 
 /**
  * The main Quanta class, responsible for managing the core components and modules of the application.
@@ -60,7 +58,6 @@ class Quanta
     public ?ScriptHandler $scriptHandler;
     public ?EventHandler $eventHandler;
     public ?ServiceHandler $serviceHandler;
-    public ?LogHandler $logHandler;
     /**
      * Constructor to initialize all handlers and core components.
      */
@@ -77,7 +74,6 @@ class Quanta
         $this->scriptHandler = new ScriptHandler();
         $this->eventHandler = new EventHandler();
         $this->serviceHandler = new ServiceHandler();
-        $this->logHandler = new LogHandler();
     }
 
     /**
@@ -97,7 +93,6 @@ class Quanta
         $this->scriptHandler = null;
         $this->eventHandler = null;
         $this->serviceHandler = null;
-        $this->logHandler = null;
     }
 
     /**
@@ -333,20 +328,6 @@ class Quanta
                             $moduleInstance = new $className($key);
                             $this->addModule($moduleInstance);
                         }
-                    }
-                }
-            }
-
-            // Setup log files from the config
-            if (isset($config['logs'])) {
-                $logs = $config['logs'];
-                foreach ($logs as $key => $logInfo) {
-                    if (isset($logInfo['file'])) {
-                        $logDir = dirname($logInfo['file']);
-                        if (!is_dir($logDir)) {
-                            mkdir($logDir, 0755, true);
-                        }
-                        $this->memory->$key = $logInfo['file'];
                     }
                 }
             }
