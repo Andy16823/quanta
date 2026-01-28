@@ -323,7 +323,6 @@ class Quanta
             }
 
             // Load modules from the config and initialize them
-            // Required fields: class, path, id
             if (isset($config['modules'])) {
                 $modules = $config['modules'];
                 foreach ($modules as $key => $moduleInfo) {
@@ -351,7 +350,6 @@ class Quanta
                     }
                 }
             }
-
         }
     }
 
