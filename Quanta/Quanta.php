@@ -25,6 +25,7 @@ require_once(__DIR__ . "/Core/Script.php");
 require_once(__DIR__ . "/Core/ScriptHandler.php");
 require_once(__DIR__ . "/Core/EventHandler.php");
 require_once(__DIR__ . "/Core/ServiceHandler.php");
+require_once(__DIR__ . "/Core/LogHandler.php");
 
 // Core modules and dependencies
 use Quanta\Core\Module;
@@ -41,6 +42,7 @@ use Quanta\Core\Script;
 use Quanta\Core\ScriptHandler;
 use Quanta\Core\EventHandler;
 use Quanta\Core\ServiceHandler;
+use Quanta\Core\LogHandler;
 
 /**
  * The main Quanta class, responsible for managing the core components and modules of the application.
@@ -58,6 +60,7 @@ class Quanta
     public ?ScriptHandler $scriptHandler;
     public ?EventHandler $eventHandler;
     public ?ServiceHandler $serviceHandler;
+    public ?LogHandler $logHandler;
     /**
      * Constructor to initialize all handlers and core components.
      */
@@ -74,6 +77,7 @@ class Quanta
         $this->scriptHandler = new ScriptHandler();
         $this->eventHandler = new EventHandler();
         $this->serviceHandler = new ServiceHandler();
+        $this->logHandler = new LogHandler();
     }
 
     /**
@@ -93,6 +97,7 @@ class Quanta
         $this->scriptHandler = null;
         $this->eventHandler = null;
         $this->serviceHandler = null;
+        $this->logHandler = null;
     }
 
     /**
@@ -283,24 +288,58 @@ class Quanta
             $file_contents = file_get_contents($file);
             $config = json_decode($file_contents, true);
 
+            // Get the appDomain from the config and set it in memory
             if (isset($config['appDomain'])) {
                 $this->memory->appDomain = $config['appDomain'];
             }
 
+            // Get the baseUrl from the config and set it in memory
             if (isset($config['baseUrl'])) {
                 $this->memory->baseUrl = $config['baseUrl'];
             }
 
+            // Load assets from the config such as CSS and JS files
             if (isset($config['assets'])) {
                 $assets = $config['assets'];
                 $this->assetHandler->loadAssets($assets);
             }
 
+            // Load variables into memory
             if (isset($config['vars'])) {
                 foreach ($config['vars'] as $key => $value) {
                     $this->memory->$key = $value;
                 }
             }
+
+            // Load modules from the config and initialize them
+            // Required fields: class, path, id
+            if (isset($config['modules'])) {
+                $modules = $config['modules'];
+                foreach ($modules as $moduleInfo) {
+                    if (isset($moduleInfo['class']) && isset($moduleInfo['path']) && isset($moduleInfo['id'])) {
+                        require_once($moduleInfo['path']);
+                        $className = $moduleInfo['class'];
+                        if (class_exists($className) && is_subclass_of($className, Module::class)) {
+                            $moduleInstance = new $className($moduleInfo['id']);
+                            $this->addModule($moduleInstance);
+                        }
+                    }
+                }
+            }
+
+            // Setup log files from the config
+            if (isset($config['logs'])) {
+                $logs = $config['logs'];
+                foreach ($logs as $logInfo) {
+                    if (isset($logInfo['file'])) {
+                        $logDir = dirname($logInfo['file']);
+                        if (!is_dir($logDir)) {
+                            mkdir($logDir, 0755, true);
+                        }
+                    }
+                }
+            }
+
         }
     }
 
