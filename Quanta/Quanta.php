@@ -326,12 +326,12 @@ class Quanta
             // Required fields: class, path, id
             if (isset($config['modules'])) {
                 $modules = $config['modules'];
-                foreach ($modules as $moduleInfo) {
-                    if (isset($moduleInfo['class']) && isset($moduleInfo['path']) && isset($moduleInfo['id'])) {
+                foreach ($modules as $key => $moduleInfo) {
+                    if (isset($moduleInfo['class']) && isset($moduleInfo['path'])) {
                         require_once($moduleInfo['path']);
                         $className = $moduleInfo['class'];
                         if (class_exists($className) && is_subclass_of($className, Module::class)) {
-                            $moduleInstance = new $className($moduleInfo['id']);
+                            $moduleInstance = new $className($key);
                             $this->addModule($moduleInstance);
                         }
                     }
@@ -341,14 +341,13 @@ class Quanta
             // Setup log files from the config
             if (isset($config['logs'])) {
                 $logs = $config['logs'];
-                foreach ($logs as $logInfo) {
-                    if (isset($logInfo['file']) && isset($logInfo['id'])) {
-                        $id = $logInfo['id'];
+                foreach ($logs as $key => $logInfo) {
+                    if (isset($logInfo['file'])) {
                         $logDir = dirname($logInfo['file']);
                         if (!is_dir($logDir)) {
                             mkdir($logDir, 0755, true);
                         }
-                        $this->memory->$id = $logInfo['file'];
+                        $this->memory->$key = $logInfo['file'];
                     }
                 }
             }
